@@ -47,26 +47,20 @@ void HospitalRouter::addCorridor(
     int to,
     int baseTime)
 {
-    // Validate nodes
-    if (from < 0 || from >= numNodes ||
-        to < 0 || to >= numNodes)
+    // Validate input
+    if (from < 0 || to < 0 || baseTime <= 0)
     {
-        cout << "[ERROR] Invalid node number.\n";
+        cout << "[ERROR] Invalid corridor data.\n";
         return;
     }
 
-    // Prevent self-loop
-    if (from == to)
-    {
-        cout << "[ERROR] A corridor cannot connect a node to itself.\n";
-        return;
-    }
+    // Dynamically expand graph if necessary
+    int requiredNodes = max(from, to) + 1;
 
-    // Validate time
-    if (baseTime <= 0)
+    if (requiredNodes > numNodes)
     {
-        cout << "[ERROR] Corridor time must be greater than 0.\n";
-        return;
+        numNodes = requiredNodes;
+        graph.resize(numNodes);
     }
 
     // Prevent duplicate corridor
@@ -79,13 +73,16 @@ void HospitalRouter::addCorridor(
         }
     }
 
-    graph[from].push_back({
-        to,
-        baseTime,
-        0
-    });
+    Edge edge;
 
-    cout << "[SUCCESS] Corridor Added.\n";
+    edge.to = to;
+    edge.baseWeight = baseTime;
+    edge.trafficDelay = 0;
+    edge.isBlocked = false;
+
+    graph[from].push_back(edge);
+
+    cout << "[SUCCESS] Corridor added.\n";
 }
 
 /*
