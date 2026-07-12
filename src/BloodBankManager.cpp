@@ -233,6 +233,8 @@ void BloodBankManager::displayDetailedInventory()
 
     for (const auto& item : inventory)
     {
+        if(item.second.empty())
+        continue;
         cout << "\nBlood Group : "
              << item.first
              << "\n";
