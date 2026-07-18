@@ -28,6 +28,12 @@ if (isEmpty(id))
     return;
 }
 
+if (patientExists(id))
+{
+    cout << "[ERROR] Patient ID already exists.\n";
+    return;
+}
+
 // Validate Name
 if (isEmpty(name))
 {
