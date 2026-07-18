@@ -29,12 +29,11 @@ public:
         string detail
     );
 
-    bool verifyCertificate(
-        string certId,
-        string patientName,
-        string detail,
-        string originalHash
-    );
+   bool verifyCertificate(
+    string certId,
+    string patientName,
+    string detail
+);
 
     Certificate* searchCertificate(
         string certId

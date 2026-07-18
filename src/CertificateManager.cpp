@@ -72,8 +72,7 @@ Certificate* CertificateManager::searchCertificate(
 bool CertificateManager::verifyCertificate(
     string certId,
     string patientName,
-    string detail,
-    string originalHash)
+    string detail)
 {
     Certificate* certificate =
         searchCertificate(certId);
@@ -95,7 +94,7 @@ bool CertificateManager::verifyCertificate(
     string currentHash =
         generateSecureHash(content);
 
-    return currentHash == originalHash;
+    return currentHash == certificate->digitalHash;
 }
 
 /*

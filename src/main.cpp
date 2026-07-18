@@ -1051,43 +1051,49 @@ void certificateMenu(HospitalService& hospital)
             }
 
             case 2:
-            {
-                string certId;
+{
+    string certId;
+    string patientName;
+    string detail;
 
-                cout << "\nEnter Certificate ID: ";
-                getline(cin, certId);
+    cout << "\nEnter Certificate ID: ";
+    getline(cin, certId);
 
-                Certificate* certificate =
-                    hospital.certificates()
-                    .searchCertificate(certId);
+    Certificate* certificate =
+        hospital.certificates()
+        .searchCertificate(certId);
 
-                if (certificate == nullptr)
-                {
-                    cout << "[ERROR] Certificate not found.\n";
-                    break;
-                }
+    if (certificate == nullptr)
+    {
+        cout << "[ERROR] Certificate not found.\n";
+        break;
+    }
 
-                bool valid =
-                    hospital.certificates()
-                    .verifyCertificate(
-                        certificate->certificateId,
-                        certificate->patientName,
-                        certificate->details,
-                        certificate->digitalHash
-                    );
+    cout << "Enter Patient Name: ";
+    getline(cin, patientName);
 
-                if (valid)
-                {
-                    cout << "[SUCCESS] Certificate is VALID.\n";
-                }
-                else
-                {
-                    cout << "[WARNING] Certificate verification FAILED.\n";
-                }
+    cout << "Enter Certificate Details: ";
+    getline(cin, detail);
 
-                break;
-            }
+    bool valid =
+        hospital.certificates()
+        .verifyCertificate(
+            certId,
+            patientName,
+            detail
+        );
 
+    if (valid)
+    {
+        cout << "[SUCCESS] Certificate is VALID.\n";
+    }
+    else
+    {
+        cout << "[WARNING] Certificate verification FAILED.\n";
+    }
+
+    break;
+}
             case 3:
             {
                 string certId;
